@@ -1,6 +1,5 @@
 # === Node.js / GitHub Actions ===
 node_modules/
-dist/
 coverage/
 .env
 .secrets
