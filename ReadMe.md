@@ -27,7 +27,7 @@ A lightweight GitHub Action for sending notifications to a [Feishu](https://www.
     webhook: ${{ secrets.FEISHU_WEBHOOK }}
     type: ${{ secrets.FEISHU_TYPE }}
     secret: ${{ secrets.FEISHU_SECRET }}
-    message: '{"msg_type":"post","content":{"post":{"zh_cn":{"title":"我是一个标题","content":[[{"tag":"text","text":"第一行 :"},{"tag":"at","user_id":"ou_xxxxxx","user_name":"tom"}],[{"tag":"text","text":"第二行:"},{"tag":"at","user_id":"all","user_name":"所有人"}]]}}}}'
+    message: '{"post":{"zh_cn":{"title":"我是一个标题","content":[[{"tag":"text","text":"第一行 :"},{"tag":"at","user_id":"ou_xxxxxx","user_name":"tom"}],[{"tag":"text","text":"第二行:"},{"tag":"at","user_id":"all","user_name":"所有人"}]]}}}'
 ```
 
 ---
@@ -60,7 +60,7 @@ Using [`act`](https://github.com/nektos/act) for local testing:
 ```bash
 # Create .secrets file in project root
 FEISHU_WEBHOOK=https://open.feishu.cn/open-apis/bot/v2/hook/xxx
-FEISHU_TYPE=text
+FEISHU_TYPE=post
 FEISHU_SECRET=your-secret-key
 
 # Then run

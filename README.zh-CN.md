@@ -18,6 +18,8 @@
 
 ### 1. 在 GitHub 工作流中添加此 Action
 
+> `type` 与 `message` 字段的值请根据实际情况填写，对应关系与格式参考飞书文档：`发送消息`，`发送卡片`；发送消息与发送卡片字段已在代码中自适应，统一填写到message中即可。
+
 ```yaml
 - name: Notify Feishu
   uses: xavier/feishu-message-action@v1
@@ -25,7 +27,7 @@
     webhook: ${{ secrets.FEISHU_WEBHOOK }}
     type: ${{ secrets.FEISHU_TYPE }}
     secret: ${{ secrets.FEISHU_SECRET }}
-    message: '{"msg_type":"post","content":{"post":{"zh_cn":{"title":"我是一个标题","content":[[{"tag":"text","text":"第一行 :"},{"tag":"at","user_id":"ou_xxxxxx","user_name":"tom"}],[{"tag":"text","text":"第二行:"},{"tag":"at","user_id":"all","user_name":"所有人"}]]}}}}'
+    message: '{"post":{"zh_cn":{"title":"我是一个标题","content":[[{"tag":"text","text":"第一行 :"},{"tag":"at","user_id":"ou_xxxxxx","user_name":"tom"}],[{"tag":"text","text":"第二行:"},{"tag":"at","user_id":"all","user_name":"所有人"}]]}}}'
 ```
 
 ---
@@ -58,7 +60,7 @@
 ```bash
 # 项目根目录创建 .secrets 文件
 FEISHU_WEBHOOK=https://open.feishu.cn/open-apis/bot/v2/hook/xxx
-FEISHU_TYPE=text
+FEISHU_TYPE=post
 FEISHU_SECRET=your-secret-key
 
 # 执行测试
