@@ -8,8 +8,9 @@ A lightweight GitHub Action for sending notifications to a [Feishu](https://www.
 
 ## 📦 Features
 
-- ✅ Supports sending plain text messages
+- ✅ Supports sending messages
 - ✅ Feishu webhook URL configuration
+- ✅ Supports multiple message types (text, card, etc.)
 - ✅ Optional message signature (secure signing)
 - ✅ Friendly with CI/CD pipelines
 
@@ -21,15 +22,13 @@ A lightweight GitHub Action for sending notifications to a [Feishu](https://www.
 
 ```yaml
 - name: Notify Feishu
-  uses: your-username/feishu-message-action@v1
+  uses: xavier/feishu-message-action@v1
   with:
     webhook: ${{ secrets.FEISHU_WEBHOOK }}
-    secret: ${{ secrets.FEISHU_SECRET }}       # Optional
-    message: |
-      ✅ Build Success!
-      Repo: ${{ github.repository }}
-      Commit: ${{ github.sha }}
-````
+    type: ${{ secrets.FEISHU_TYPE }}
+    secret: ${{ secrets.FEISHU_SECRET }}
+    message: '{"msg_type":"post","content":{"post":{"zh_cn":{"title":"我是一个标题","content":[[{"tag":"text","text":"第一行 :"},{"tag":"at","user_id":"ou_xxxxxx","user_name":"tom"}],[{"tag":"text","text":"第二行:"},{"tag":"at","user_id":"all","user_name":"所有人"}]]}}}}'
+```
 
 ---
 
@@ -37,9 +36,10 @@ A lightweight GitHub Action for sending notifications to a [Feishu](https://www.
 
 | Name    | Required | Description                           |
 | ------- | -------- | ------------------------------------- |
-| webhook | ✅ Yes    | Feishu robot webhook URL              |
-| secret  | ❌ No     | Secret key for signature (if enabled) |
-| message | ✅ Yes    | Message content to send               |
+| webhook | ✅ Yes   | Feishu robot webhook URL              |
+| type    | ✅ Yes   | Message type (text, card, etc.)       |
+| secret  | ❌ No    | Secret key for signature (if enabled) |
+| message | ✅ Yes   | Message content to send               |
 
 ---
 
@@ -60,6 +60,7 @@ Using [`act`](https://github.com/nektos/act) for local testing:
 ```bash
 # Create .secrets file in project root
 FEISHU_WEBHOOK=https://open.feishu.cn/open-apis/bot/v2/hook/xxx
+FEISHU_TYPE=text
 FEISHU_SECRET=your-secret-key
 
 # Then run

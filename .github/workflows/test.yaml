@@ -1,14 +1,34 @@
-name: Feishu Test
+name: 'build-test'
 
 on:
   workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+      - 'v*'
 
 jobs:
-  feishu-test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Send test message to Feishu
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install and build
+        run: |
+          npm install
+          npm run build
+
+      - name: Checkout again (if needed)
+        uses: actions/checkout@v2
+
+      - name: Run Feishu Notification
         uses: ./
         with:
           webhook: ${{ secrets.FEISHU_WEBHOOK }}
-          message: "Hello from local act test"
+          type: ${{ secrets.FEISHU_TYPE }}
+          secret: ${{ secrets.FEISHU_SECRET }}
+          message: '{"schema":"2.0","config":{"update_multi":true,"style":{"text_size":{"normal_v2":{"default":"normal","pc":"normal","mobile":"heading"}}}},"body":{"direction":"vertical","padding":"12px 12px 12px 12px","elements":[{"tag":"column_set","horizontal_align":"left","columns":[{"tag":"column","width":"weighted","elements":[{"tag":"markdown","content":"**项目名称：**\n${{ github.repository }}","text_align":"left","text_size":"normal_v2","icon":{"tag":"standard_icon","token":"meego_filled","color":"blue"}},{"tag":"markdown","content":"**提交用户：**\n${{ github.actor }}","text_align":"left","text_size":"normal_v2","icon":{"tag":"standard_icon","token":"member_filled","color":"blue"}}],"vertical_spacing":"8px","horizontal_align":"left","vertical_align":"top","weight":1},{"tag":"column","width":"weighted","elements":[{"tag":"markdown","content":"**执行结果：**\n${{ job.status }}","text_align":"left","text_size":"normal_v2","icon":{"tag":"standard_icon","token":"coding-test_filled","color":"blue"}},{"tag":"markdown","content":"**触发事件：**\n${{ github.event_name }}","text_align":"left","text_size":"normal_v2","icon":{"tag":"standard_icon","token":"info-hollow_filled","color":"blue"}}],"vertical_spacing":"8px","horizontal_align":"left","vertical_align":"top","weight":1}]}]},"header":{"title":{"tag":"plain_text","content":"Gitea CI 执行结果通知"},"subtitle":{"tag":"plain_text","content":""},"template":"blue","padding":"12px 12px 12px 12px"}}'
+

@@ -1,9 +1,15 @@
 name: 'Feishu Notify Action'
 description: 'Send message to Feishu bot via webhook'
-author: 'Your Name'
+branding:
+  color: 'blue'
+  icon: 'message-square'
+author: 'xavier'
 inputs:
   webhook:
     description: 'Feishu Webhook URL'
+    required: true
+  type:
+    description: 'Message type'
     required: true
   message:
     description: 'Message to send'
@@ -13,4 +19,4 @@ inputs:
     required: false
 runs:
   using: 'node16'
-  main: 'entrypoint.js'
+  main: 'dist/index.js'
