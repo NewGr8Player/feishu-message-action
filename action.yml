@@ -1,0 +1,16 @@
+name: 'Feishu Notify Action'
+description: 'Send message to Feishu bot via webhook'
+author: 'Your Name'
+inputs:
+  webhook:
+    description: 'Feishu Webhook URL'
+    required: true
+  message:
+    description: 'Message to send'
+    required: true
+  secret:
+    description: 'Feishu secret key (optional, for signature)'
+    required: false
+runs:
+  using: 'node16'
+  main: 'entrypoint.js'

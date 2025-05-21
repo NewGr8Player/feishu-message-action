@@ -1,0 +1,34 @@
+# === Node.js / GitHub Actions ===
+node_modules/
+dist/
+coverage/
+.env
+.secrets
+
+# === macOS ===
+.DS_Store
+
+# === VSCode ===
+.vscode/
+*.code-workspace
+
+# === IntelliJ IDEA / WebStorm ===
+.idea/
+*.iml
+out/
+
+# === Logs ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+log.txt
+
+# === OS generated files ===
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Optional: test outputs ===
+act_output/

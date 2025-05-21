@@ -1,0 +1,9 @@
+{
+  "name": "feishu-message-action",
+  "version": "1.0.0",
+  "main": "entrypoint.js",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "axios": "^1.6.0"
+  }
+}

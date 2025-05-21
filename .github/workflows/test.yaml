@@ -1,0 +1,14 @@
+name: Feishu Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  feishu-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send test message to Feishu
+        uses: ./
+        with:
+          webhook: ${{ secrets.FEISHU_WEBHOOK }}
+          message: "Hello from local act test"
